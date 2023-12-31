@@ -1,0 +1,32 @@
+// Code your testbench here
+// or browse Examples
+//Q3:Write a constraint to generate below pattern 9 19 29 39 49 59 69 79
+
+
+
+class cons;
+  rand int a[];
+  
+  constraint x {a.size == 7;}
+  //constraint y {a.value > 80;}
+  constraint z {foreach (a[i])
+    if(i%2 == 0)
+      a[i] == (i*10)+9;//9,29,49,69
+                else
+                  a[i] == i*10 +9;}    // 19, 39, 59, 79
+    
+  
+  function void post_randomize();
+    $display("Generated value of a is %p",a);
+  endfunction
+endclass 
+
+
+
+module top;
+  cons c;
+  initial begin
+     c = new();
+    assert(c.randomize());
+  end
+endmodule
